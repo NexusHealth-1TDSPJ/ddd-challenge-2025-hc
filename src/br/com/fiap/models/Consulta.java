@@ -8,7 +8,7 @@ public class Consulta {
     private TipoAtendiEnum tipo_consulta;
     private LocalDate data_consulta;
     private String motivo_consulta;
-    private int fk_historico;
+    private int fk_paciente;
     private int fk_profissional;
 
     public Consulta() {
@@ -46,12 +46,12 @@ public class Consulta {
         this.motivo_consulta = motivo_consulta;
     }
 
-    public int getFk_historico() {
-        return this.fk_historico;
+    public int getFk_paciente() {
+        return this.fk_paciente;
     }
 
-    public void setFk_historico(int fk_historico) {
-        this.fk_historico = fk_historico;
+    public void setFk_paciente(int fk_paciente) {
+        this.fk_paciente = fk_paciente;
     }
 
     public int getFk_profissional() {
@@ -66,7 +66,7 @@ public class Consulta {
         int var10000 = this.id_consulta;
         return "Consulta{id_consulta=" + var10000 +
                 ", tipo_consulta='" + String.valueOf(this.tipo_consulta) + "', data_consulta=" + String.valueOf(this.data_consulta) +
-                ", motivo_consulta='" + this.motivo_consulta + "', fk_historico=" + this.fk_historico +
+                ", motivo_consulta='" + this.motivo_consulta + "', fk_paciente=" + this.fk_paciente +
                 ", fk_profissional=" + this.fk_profissional + "}";
     }
 }

@@ -19,13 +19,13 @@ public class ConsultaDao {
         this.conexao = ConnectionFactory.obterConexao();
     }
     public void inserir(Consulta c) {
-        String sql = "INSERT INTO CONSULTA (id_consulta, tipo_consulta, data_consulta, motivo_consulta, fk_historico, fk_profissional) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO CONSULTA (id_consulta, tipo_consulta, data_consulta, motivo_consulta, fk_paciente, fk_profissional) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conexao.prepareStatement(sql)) {
             ps.setInt(1, c.getId_consulta());
             ps.setString(2, c.getTipo_consulta().toString());
             ps.setDate(3, Date.valueOf(c.getData_consulta()));
             ps.setString(4, c.getMotivo_consulta());
-            ps.setInt(5, c.getFk_historico());
+            ps.setInt(5, c.getFk_paciente());
             ps.setInt(6, c.getFk_profissional());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -33,12 +33,12 @@ public class ConsultaDao {
         }
     }
     public void alterar(Consulta c) {
-        String sql = "UPDATE CONSULTA SET tipo_consulta = ?, data_consulta = ?, motivo_consulta = ?, fk_historico = ?, fk_profissional = ? WHERE id_consulta = ?";
+        String sql = "UPDATE CONSULTA SET tipo_consulta = ?, data_consulta = ?, motivo_consulta = ?, fk_paciente = ?, fk_profissional = ? WHERE id_consulta = ?";
         try (PreparedStatement ps = conexao.prepareStatement(sql)) {
             ps.setString(1, c.getTipo_consulta().toString());
             ps.setDate(2, Date.valueOf(c.getData_consulta()));
             ps.setString(3, c.getMotivo_consulta());
-            ps.setInt(4, c.getFk_historico());
+            ps.setInt(4, c.getFk_paciente());
             ps.setInt(5, c.getFk_profissional());
             ps.setInt(6, c.getId_consulta());
             ps.executeUpdate();
@@ -69,7 +69,7 @@ public class ConsultaDao {
                     c.setTipo_consulta(TipoAtendiEnum.fromString(rs.getString("tipo_consulta")));
                     c.setData_consulta(rs.getDate("data_consulta").toLocalDate());
                     c.setMotivo_consulta(rs.getString("motivo_consulta"));
-                    c.setFk_historico(rs.getInt("fk_historico"));
+                    c.setFk_paciente(rs.getInt("fk_paciente"));
                     c.setFk_profissional(rs.getInt("fk_profissional"));
                 }
             }
@@ -90,7 +90,7 @@ public class ConsultaDao {
                 c.setTipo_consulta(TipoAtendiEnum.fromString(rs.getString("tipo_consulta")));
                 c.setData_consulta(rs.getDate("data_consulta").toLocalDate());
                 c.setMotivo_consulta(rs.getString("motivo_consulta"));
-                c.setFk_historico(rs.getInt("fk_historico"));
+                c.setFk_paciente(rs.getInt("fk_paciente"));
                 c.setFk_profissional(rs.getInt("fk_profissional"));
                 consultas.add(c);
             }
@@ -126,7 +126,7 @@ public class ConsultaDao {
                     c.setTipo_consulta(TipoAtendiEnum.fromString(rs.getString("tipo_consulta")));
                     c.setData_consulta(rs.getDate("data_consulta").toLocalDate());
                     c.setMotivo_consulta(rs.getString("motivo_consulta"));
-                    c.setFk_historico(rs.getInt("fk_historico"));
+                    c.setFk_paciente(rs.getInt("fk_paciente"));
                     c.setFk_profissional(rs.getInt("fk_profissional"));
                     consultas.add(c);
                 }
@@ -162,7 +162,7 @@ public class ConsultaDao {
                     c.setTipo_consulta(TipoAtendiEnum.fromString(rs.getString("tipo_consulta")));
                     c.setData_consulta(rs.getDate("data_consulta").toLocalDate());
                     c.setMotivo_consulta(rs.getString("motivo_consulta"));
-                    c.setFk_historico(rs.getInt("fk_historico"));
+                    c.setFk_paciente(rs.getInt("fk_paciente"));
                     c.setFk_profissional(rs.getInt("fk_profissional"));
                     consultas.add(c);
                 }

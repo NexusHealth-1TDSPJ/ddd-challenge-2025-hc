@@ -81,8 +81,8 @@ public class TesteConsulta {
         System.out.print("Digite o motivo da consulta: ");
         c.setMotivo_consulta(sc.nextLine());
 
-        System.out.print("Digite o ID do histórico do paciente: ");
-        c.setFk_historico(sc.nextInt());
+        System.out.print("Digite o ID do paciente: ");
+        c.setFk_paciente(sc.nextInt());
         sc.nextLine();
 
         System.out.print("Digite o ID do profissional responsável: ");
@@ -137,8 +137,8 @@ public class TesteConsulta {
         System.out.print("Digite o novo motivo da consulta: ");
         c.setMotivo_consulta(sc.nextLine());
 
-        System.out.print("Digite o novo ID do histórico: ");
-        c.setFk_historico(sc.nextInt());
+        System.out.print("Digite o ID do novo paciente: ");
+        c.setFk_paciente(sc.nextInt());
         sc.nextLine();
 
         System.out.print("Digite o novo ID do profissional: ");
