@@ -10,10 +10,8 @@ public class Paciente {
     private int nivel_tec;
     private TipoAtendiEnum tipoAtendiEnum;
 
-    // Construtor padrão
     public Paciente() {}
 
-    // Construtor completo
     public Paciente(int id_pac, String nome_pac, int idade_pac, int nivel_tec, TipoAtendiEnum tipoAtendiEnum) {
         this.id_pac = id_pac;
         this.nome_pac = nome_pac;
@@ -22,7 +20,6 @@ public class Paciente {
         this.tipoAtendiEnum = tipoAtendiEnum;
     }
 
-    // Getters e Setters
     public int getId_pac() {
         return id_pac;
     }
@@ -63,7 +60,6 @@ public class Paciente {
         this.tipoAtendiEnum = tipoAtendiEnum;
     }
 
-    // toString para exibir os dados organizados
     @Override
     public String toString() {
         return "Paciente {" +
