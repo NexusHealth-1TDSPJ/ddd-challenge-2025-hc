@@ -8,7 +8,7 @@ public class MenuPrincipal {
         Scanner sc = new Scanner(System.in);
         int opcao;
 
-        do {
+        while (true) {
             System.out.println("\n==== MENU PRINCIPAL ====");
             System.out.println("1 - Testar Conexão");
             System.out.println("2 - Paciente");
@@ -20,15 +20,18 @@ public class MenuPrincipal {
             sc.nextLine();
 
             switch (opcao) {
-                case 0 -> System.out.println("Programa encerrado!");
                 case 1 -> TesteConexao.main(null);
                 case 2 -> TestePaciente.main(null);
                 case 3 -> TesteProfissional.main(null);
                 case 4 -> TesteConsulta.main(null);
+                case 0 -> {
+                    System.out.println("Programa encerrado!");
+                    sc.close();
+                    return;
+                }
                 default -> System.out.println("Opção inválida! Tente novamente.");
             }
-        } while (opcao != 0);
+        }
 
-        sc.close();
     }
 }
