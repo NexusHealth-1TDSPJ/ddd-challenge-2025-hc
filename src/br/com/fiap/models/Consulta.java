@@ -64,6 +64,9 @@ public class Consulta {
 
     public String toString() {
         int var10000 = this.id_consulta;
-        return "Consulta{id_consulta=" + var10000 + ", tipo_consulta='" + String.valueOf(this.tipo_consulta) + "', data_consulta=" + String.valueOf(this.data_consulta) + ", motivo_consulta='" + this.motivo_consulta + "', fk_historico=" + this.fk_historico + ", fk_profissional=" + this.fk_profissional + "}";
+        return "Consulta{id_consulta=" + var10000 +
+                ", tipo_consulta='" + String.valueOf(this.tipo_consulta) + "', data_consulta=" + String.valueOf(this.data_consulta) +
+                ", motivo_consulta='" + this.motivo_consulta + "', fk_historico=" + this.fk_historico +
+                ", fk_profissional=" + this.fk_profissional + "}";
     }
 }

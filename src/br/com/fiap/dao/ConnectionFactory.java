@@ -5,18 +5,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-    public ConnectionFactory() {
-    }
-
-    public static Connection obterConecao() {
+    public static Connection obterConexao(){
         Connection conexao = null;
-
-        try {
-            conexao = DriverManager.getConnection("jdbc:oracle:thin:@//oracle.fiap.com.br:1521/ORCL", "rm565771", "031204");
-        } catch (SQLException erro) {
+        try{
+            conexao = DriverManager.getConnection("jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl",
+                    "rm565771", "031204");
+        }catch (SQLException erro){
             erro.printStackTrace();
         }
-
         return conexao;
     }
 }

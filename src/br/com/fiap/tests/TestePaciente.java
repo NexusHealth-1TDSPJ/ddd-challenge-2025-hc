@@ -3,107 +3,156 @@ package br.com.fiap.tests;
 import br.com.fiap.dao.PacienteDao;
 import br.com.fiap.enums.TipoAtendiEnum;
 import br.com.fiap.models.Paciente;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class TestePaciente {
-    public TestePaciente() {
-    }
 
     public static void main(String[] args) {
-        Scanner leitorNum = new Scanner(System.in);
-        Scanner leitorTexto = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         PacienteDao dao = new PacienteDao();
-
         int opcao;
+
         do {
             System.out.println("\n==== MENU PACIENTE ====");
             System.out.println("1 - Cadastrar Paciente");
             System.out.println("2 - Buscar Paciente por ID");
             System.out.println("3 - Alterar Paciente");
+            System.out.println("4 - Excluir Paciente");
+            System.out.println("5 - Listar Todos os Pacientes");
+            System.out.println("6 - Contar Pacientes por Tipo de Atendimento");
+            System.out.println("7 - Verificar Existência de Paciente");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
-            opcao = leitorNum.nextInt();
+            opcao = sc.nextInt();
+            sc.nextLine();
+
             switch (opcao) {
-                case 0:
-                    System.out.println("Encerrando o programa...");
-                    break;
-                case 1:
-                    cadastrarPaciente(leitorNum, leitorTexto, dao);
-                    break;
-                case 2:
-                    buscarPaciente(leitorNum, dao);
-                    break;
-                case 3:
-                    alterarPaciente(leitorNum, leitorTexto, dao);
-                    break;
-                default:
-                    System.out.println("Opção inválida! Tente novamente.");
+                case 0 -> System.out.println(" Programa encerrado!");
+                case 1 -> cadastrarPaciente(sc, dao);
+                case 2 -> buscarPaciente(sc, dao);
+                case 3 -> alterarPaciente(sc, dao);
+                case 4 -> excluirPaciente(sc, dao);
+                case 5 -> listarPacientes(dao);
+                case 6 -> contarPorTipoAtendimento(sc, dao);
+                case 7 -> verificarExistencia(sc, dao);
+                default -> System.out.println(" Opção inválida! Tente novamente.");
             }
-        } while(opcao != 0);
 
-        leitorNum.close();
-        leitorTexto.close();
+        } while (opcao != 0);
+
+        sc.close();
     }
 
-    private static void cadastrarPaciente(Scanner leitorNum, Scanner leitorTexto, PacienteDao dao) {
-        Paciente paciente = new Paciente();
-        System.out.println("\n=== CADASTRAR PACIENTE ===");
-        System.out.print("Digite o código do paciente: ");
-        paciente.setId_pac(leitorNum.nextInt());
-        System.out.print("Digite o nome do paciente: ");
-        paciente.setNome_pac(leitorTexto.nextLine());
-        System.out.print("Digite a idade do paciente: ");
-        paciente.setIdade_pac(leitorNum.nextInt());
-        System.out.print("Digite o nível técnico do paciente (1 - Baixo, 2 - Médio, 3 - Alto): ");
-        paciente.setNivel_tec(leitorNum.nextInt());
-        System.out.println("Selecione o tipo de atendimento: ");
-        System.out.println("1 - Presencial\t2 - Teleconsulta");
-        int tipoOp = leitorNum.nextInt();
-        switch (tipoOp) {
-            case 1 -> paciente.setTipoAtendiEnum(TipoAtendiEnum.Presencial);
-            case 2 -> paciente.setTipoAtendiEnum(TipoAtendiEnum.Teleconsulta);
-            default -> System.out.println("Opção inválida. Tipo não alterado.");
+    private static void cadastrarPaciente(Scanner sc, PacienteDao dao) {
+        Paciente p = new Paciente();
+        System.out.println("\nCADASTRAR PACIENTE");
+        System.out.print("ID: ");
+        p.setId_pac(sc.nextInt());
+        sc.nextLine();
+        System.out.print("Nome: ");
+        p.setNome_pac(sc.nextLine());
+        System.out.print("Idade: ");
+        p.setIdade_pac(sc.nextInt());
+        sc.nextLine();
+        System.out.print("Nível técnico: ");
+        p.setNivel_tec(sc.nextInt());
+        sc.nextLine();
+
+        TipoAtendiEnum tipo = null;
+        while (tipo == null) {
+            System.out.println("Tipo de atendimento: 1-Presencial 2-Teleconsulta");
+            int op = sc.nextInt();
+            sc.nextLine();
+            if (op == 1) tipo = TipoAtendiEnum.Presencial;
+            else if (op == 2) tipo = TipoAtendiEnum.Teleconsulta;
+            else System.out.println("Opção inválida!");
         }
+        p.setTipoAtendiEnum(tipo);
 
-        dao.inserir(paciente);
-        System.out.println("Paciente cadastrado com sucesso!");
+        dao.inserir(p);
+        System.out.println(" Paciente cadastrado!");
     }
 
-    private static void buscarPaciente(Scanner leitorNum, PacienteDao dao) {
-        System.out.println("\n=== BUSCAR PACIENTE ===");
+    private static void buscarPaciente(Scanner sc, PacienteDao dao) {
         System.out.print("Digite o ID do paciente: ");
-        int id = leitorNum.nextInt();
-        Paciente paciente = dao.buscarPorId(id);
-        if (paciente != null) {
-            System.out.println("Paciente encontrado:");
-            System.out.println(paciente);
-        } else {
-            System.out.println("Nenhum paciente encontrado com esse ID.");
-        }
-
+        int id = sc.nextInt();
+        sc.nextLine();
+        Paciente p = dao.buscarPorId(id);
+        if (p != null) System.out.println(p);
+        else System.out.println(" Paciente não encontrado.");
     }
 
-    private static void alterarPaciente(Scanner leitorNum, Scanner leitorTexto, PacienteDao dao) {
-        Paciente paciente = new Paciente();
-        System.out.println("\n=== ALTERAR PACIENTE ===");
-        System.out.print("Digite o ID do paciente que deseja alterar: ");
-        paciente.setId_pac(leitorNum.nextInt());
-        System.out.print("Digite o novo nome do paciente: ");
-        paciente.setNome_pac(leitorTexto.nextLine());
-        System.out.print("Digite a nova idade do paciente: ");
-        paciente.setIdade_pac(leitorNum.nextInt());
-        System.out.print("Digite o novo nível técnico do paciente (0 a 10): ");
-        paciente.setNivel_tec(leitorNum.nextInt());
-        System.out.println("Selecione o novo tipo de atendimento:");
-        System.out.println("1 - Presencial\t2 - Teleconsulta");
-        int op = leitorNum.nextInt();
-        switch (op) {
-            case 1 -> paciente.setTipoAtendiEnum(TipoAtendiEnum.Presencial);
-            case 2 -> paciente.setTipoAtendiEnum(TipoAtendiEnum.Teleconsulta);
-            default -> System.out.println("Opção inválida. Tipo não alterado.");
+    private static void alterarPaciente(Scanner sc, PacienteDao dao) {
+        System.out.print("Digite o ID do paciente a alterar: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+        Paciente p = dao.buscarPorId(id);
+        if (p == null) {
+            System.out.println(" Paciente não encontrado.");
+            return;
         }
 
-        dao.alterar(paciente);
-        System.out.println("Paciente alterado com sucesso!");
+        System.out.print("Novo nome: ");
+        p.setNome_pac(sc.nextLine());
+        System.out.print("Nova idade: ");
+        p.setIdade_pac(sc.nextInt());
+        sc.nextLine();
+        System.out.print("Novo nível técnico: ");
+        p.setNivel_tec(sc.nextInt());
+        sc.nextLine();
+
+        TipoAtendiEnum tipo = null;
+        while (tipo == null) {
+            System.out.println("Novo tipo de atendimento: 1-Presencial 2-Teleconsulta");
+            int op = sc.nextInt();
+            sc.nextLine();
+            if (op == 1) tipo = TipoAtendiEnum.Presencial;
+            else if (op == 2) tipo = TipoAtendiEnum.Teleconsulta;
+            else System.out.println(" Opção inválida!");
+        }
+        p.setTipoAtendiEnum(tipo);
+
+        dao.alterar(p);
+        System.out.println(" Paciente alterado!");
+    }
+
+    private static void excluirPaciente(Scanner sc, PacienteDao dao) {
+        System.out.print("Digite o ID do paciente a excluir: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+        dao.excluir(id);
+        System.out.println(" Paciente excluído!");
+    }
+
+    private static void listarPacientes(PacienteDao dao) {
+        List<Paciente> lista = dao.listar();
+        if (lista.isEmpty()) System.out.println("Nenhum paciente cadastrado.");
+        else lista.forEach(System.out::println);
+    }
+
+
+    //Conta a quantidade de paciente em cada modalidade
+    private static void contarPorTipoAtendimento(Scanner sc, PacienteDao dao) {
+        TipoAtendiEnum tipo = null;
+        while (tipo == null) {
+            System.out.println("Tipo de atendimento: 1-Presencial 2-Teleconsulta");
+            int op = sc.nextInt();
+            sc.nextLine();
+            if (op == 1) tipo = TipoAtendiEnum.Presencial;
+            else if (op == 2) tipo = TipoAtendiEnum.Teleconsulta;
+            else System.out.println("Opção inválida!");
+        }
+        int qtd = dao.contarPorTipoAtendimento(tipo);
+        System.out.println("Total de pacientes: " + qtd);
+    }
+    //Verifica se o passiente existe
+    private static void verificarExistencia(Scanner sc, PacienteDao dao) {
+        System.out.print("Digite o ID do paciente: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+        boolean existe = dao.existePaciente(id);
+        System.out.println(existe ? " Paciente existe." : "Paciente não existe.");
     }
 }

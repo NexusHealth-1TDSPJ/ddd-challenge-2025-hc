@@ -16,7 +16,7 @@ public class TesteProfissional {
 
         int op;
         do {
-            System.out.println("\n=== MENU PROFISSIONAL ===");
+            System.out.println("\nMENU PROFISSIONAL");
             System.out.println("1 - Inserir");
             System.out.println("2 - Alterar");
             System.out.println("3 - Buscar por ID");
@@ -68,7 +68,6 @@ public class TesteProfissional {
         System.out.print("CRM: ");
         p.setCrm_profissional(sc.nextInt());
         dao.inserir(p);
-        System.out.println("Profissional inserido com sucesso!");
     }
 
     private static void alterarProfissional(ProfissionalDao dao, Scanner sc) {
@@ -87,7 +86,6 @@ public class TesteProfissional {
         System.out.print("Novo CRM: ");
         p.setCrm_profissional(sc.nextInt());
         dao.alterar(p);
-        System.out.println("Profissional alterado com sucesso!");
     }
 
     private static void buscarPorId(ProfissionalDao dao, Scanner sc) {
@@ -119,7 +117,6 @@ public class TesteProfissional {
     private static void excluirProfissional(ProfissionalDao dao, Scanner sc) {
         System.out.print("Digite o ID do profissional a excluir: ");
         int id = sc.nextInt();
-        dao.excluir(id);
-        System.out.println("Profissional excluído com sucesso!");
+        dao.excluirProfissional(id);
     }
 }

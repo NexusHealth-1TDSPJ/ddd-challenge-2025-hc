@@ -21,7 +21,7 @@ public class ProfissionalDao {
     }
 
     public void inserir(Profissional profissional) {
-        this.conexao = ConnectionFactory.obterConecao();
+        this.conexao = ConnectionFactory.obterConexao();
         PreparedStatement comandoSql = null;
 
         try {
@@ -54,7 +54,7 @@ public class ProfissionalDao {
     }
 
     public void alterar(Profissional profissional) {
-        this.conexao = ConnectionFactory.obterConecao();
+        this.conexao = ConnectionFactory.obterConexao();
         PreparedStatement comandoSql = null;
 
         try {
@@ -86,8 +86,8 @@ public class ProfissionalDao {
 
     }
 
-    public void excluir(int id) {
-        this.conexao = ConnectionFactory.obterConecao();
+    public void excluirProfissional(int id) {
+        this.conexao = ConnectionFactory.obterConexao();
         PreparedStatement comandoSql = null;
 
         try {
@@ -116,7 +116,7 @@ public class ProfissionalDao {
     }
 
     public Profissional buscarPorId(int id) {
-        this.conexao = ConnectionFactory.obterConecao();
+        this.conexao = ConnectionFactory.obterConexao();
         Profissional profissional = null;
         PreparedStatement comandoSql = null;
         ResultSet rs = null;
@@ -159,7 +159,7 @@ public class ProfissionalDao {
     }
 
     public List<Profissional> listar() {
-        this.conexao = ConnectionFactory.obterConecao();
+        this.conexao = ConnectionFactory.obterConexao();
         List<Profissional> profissionais = new ArrayList();
         PreparedStatement comandoSql = null;
         ResultSet rs = null;
