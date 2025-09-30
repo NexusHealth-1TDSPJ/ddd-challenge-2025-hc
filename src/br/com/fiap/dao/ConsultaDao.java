@@ -18,8 +18,6 @@ public class ConsultaDao {
     public ConsultaDao() {
         this.conexao = ConnectionFactory.obterConexao();
     }
-
-    // Inserir consulta
     public void inserir(Consulta c) {
         String sql = "INSERT INTO CONSULTA (id_consulta, tipo_consulta, data_consulta, motivo_consulta, fk_historico, fk_profissional) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conexao.prepareStatement(sql)) {
@@ -34,8 +32,6 @@ public class ConsultaDao {
             throw new RuntimeException("Erro ao inserir consulta", e);
         }
     }
-
-    // Alterar consulta
     public void alterar(Consulta c) {
         String sql = "UPDATE CONSULTA SET tipo_consulta = ?, data_consulta = ?, motivo_consulta = ?, fk_historico = ?, fk_profissional = ? WHERE id_consulta = ?";
         try (PreparedStatement ps = conexao.prepareStatement(sql)) {
@@ -51,7 +47,6 @@ public class ConsultaDao {
         }
     }
 
-    // Excluir consulta
     public void excluir(int id) {
         String sql = "DELETE FROM CONSULTA WHERE id_consulta = ?";
         try (PreparedStatement ps = conexao.prepareStatement(sql)) {
@@ -62,7 +57,6 @@ public class ConsultaDao {
         }
     }
 
-    // Buscar por ID
     public Consulta buscarPorId(int id) {
         Consulta c = null;
         String sql = "SELECT * FROM CONSULTA WHERE id_consulta = ?";
@@ -85,7 +79,6 @@ public class ConsultaDao {
         return c;
     }
 
-    // Listar todas
     public List<Consulta> listar() {
         List<Consulta> consultas = new ArrayList<>();
         String sql = "SELECT * FROM CONSULTA";
@@ -107,9 +100,6 @@ public class ConsultaDao {
         return consultas;
     }
 
-    // --- MÉTODOS DE REGRAS DE NEGÓCIO ---
-
-    // 1. Contar consultas por profissional
     public int contarConsultasPorProfissional(int idProfissional) {
         int total = 0;
         String sql = "SELECT COUNT(*) FROM CONSULTA WHERE fk_profissional = ?";
@@ -124,7 +114,6 @@ public class ConsultaDao {
         return total;
     }
 
-    // 2. Listar consultas por data
     public List<Consulta> listarPorData(LocalDate data) {
         List<Consulta> consultas = new ArrayList<>();
         String sql = "SELECT * FROM CONSULTA WHERE data_consulta = ?";
@@ -148,7 +137,6 @@ public class ConsultaDao {
         return consultas;
     }
 
-    // 3. Verificar disponibilidade de profissional em uma data
     public boolean isProfissionalDisponivel(int idProfissional, LocalDate data) {
         String sql = "SELECT 1 FROM CONSULTA WHERE fk_profissional = ? AND data_consulta = ?";
         try (PreparedStatement ps = conexao.prepareStatement(sql)) {
@@ -162,7 +150,6 @@ public class ConsultaDao {
         }
     }
 
-    // 4. Listar consultas por tipo de atendimento
     public List<Consulta> listarPorTipo(TipoAtendiEnum tipo) {
         List<Consulta> consultas = new ArrayList<>();
         String sql = "SELECT * FROM CONSULTA WHERE tipo_consulta = ?";

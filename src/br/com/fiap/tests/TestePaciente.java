@@ -42,7 +42,6 @@ public class TestePaciente {
 
         } while (opcao != 0);
 
-        sc.close();
     }
 
     private static void cadastrarPaciente(Scanner sc, PacienteDao dao) {
@@ -132,8 +131,6 @@ public class TestePaciente {
         else lista.forEach(System.out::println);
     }
 
-
-    //Conta a quantidade de paciente em cada modalidade
     private static void contarPorTipoAtendimento(Scanner sc, PacienteDao dao) {
         TipoAtendiEnum tipo = null;
         while (tipo == null) {
@@ -147,7 +144,7 @@ public class TestePaciente {
         int qtd = dao.contarPorTipoAtendimento(tipo);
         System.out.println("Total de pacientes: " + qtd);
     }
-    //Verifica se o passiente existe
+
     private static void verificarExistencia(Scanner sc, PacienteDao dao) {
         System.out.print("Digite o ID do paciente: ");
         int id = sc.nextInt();

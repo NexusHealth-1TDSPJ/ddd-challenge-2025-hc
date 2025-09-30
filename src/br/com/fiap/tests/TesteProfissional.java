@@ -48,8 +48,6 @@ public class TesteProfissional {
                     System.out.println("Opção inválida! Tente novamente.");
             }
         } while(op != 0);
-
-        sc.close();
     }
 
     private static void inserirProfissional(ProfissionalDao dao, Scanner sc) {

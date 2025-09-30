@@ -46,7 +46,6 @@ public class TesteConsulta {
             }
         } while (opcao != 0);
 
-        sc.close();
     }
 
     private static void cadastrarConsulta(Scanner sc, ConsultaDao dao) {
@@ -166,7 +165,6 @@ public class TesteConsulta {
         else consultas.forEach(System.out::println);
     }
 
-    // Verifica a quantidade de consultas de um profisional
     private static void contarConsultasProfissional(Scanner sc, ConsultaDao dao) {
         System.out.print("Digite o ID do profissional: ");
         int id = sc.nextInt();
@@ -175,8 +173,6 @@ public class TesteConsulta {
         System.out.println("Total de consultas do profissional: " + total);
     }
 
-
-    //Verifica se o profissional esta disponivel nessa data
     private static void verificarDisponibilidade(Scanner sc, ConsultaDao dao) {
         System.out.print("Digite o ID do profissional: ");
         int id = sc.nextInt();
@@ -187,7 +183,6 @@ public class TesteConsulta {
         System.out.println(disponivel ? "Profissional disponível." : " Profissional indisponível.");
     }
 
-    //Lista as consultas pela enumeração
     private static void listarConsultasPorTipo(Scanner sc, ConsultaDao dao) {
         System.out.println("Selecione o tipo: 1-Presencial 2-Teleconsulta");
         int op = sc.nextInt();
